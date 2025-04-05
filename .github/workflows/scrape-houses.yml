@@ -1,0 +1,28 @@
+name: Scrape Houses
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs at 8 AM UTC every day
+  workflow_dispatch:     # Allows manual triggering
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+        
+    - name: Install dependencies
+      run: bundle install
+      
+    - name: Run scraper
+      run: bundle exec ruby script.rb
+      env:
+        GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+        GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }} 

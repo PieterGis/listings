@@ -1,0 +1,68 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
+    base64 (0.2.0)
+    bigdecimal (3.1.9)
+    childprocess (5.1.0)
+      logger (~> 1.5)
+    csv (3.3.3)
+    date (3.4.1)
+    dotenv (3.1.7)
+    httparty (0.23.1)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
+    launchy (3.1.1)
+      addressable (~> 2.8)
+      childprocess (~> 5.0)
+      logger (~> 1.6)
+    logger (1.7.0)
+    mail (2.8.1)
+      mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
+    mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
+    multi_xml (0.7.1)
+      bigdecimal (~> 3.1)
+    net-imap (0.5.6)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.2)
+      timeout
+    net-smtp (0.5.1)
+      net-protocol
+    nokogiri (1.18.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    public_suffix (6.0.1)
+    racc (1.8.1)
+    rexml (3.4.1)
+    rubyzip (2.4.1)
+    selenium-webdriver (4.31.0)
+      base64 (~> 0.2)
+      logger (~> 1.4)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
+    timeout (0.4.3)
+    websocket (1.2.11)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dotenv
+  httparty
+  launchy (~> 3.1)
+  mail (~> 2.8)
+  nokogiri
+  selenium-webdriver (~> 4.31)
+
+BUNDLED WITH
+   2.5.10
