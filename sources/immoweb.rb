@@ -31,6 +31,9 @@ class ImmowebScraper
         # Extract title
         title = property.css('.card__title-link')&.text&.strip
         
+        # Extract address
+        address = property.css('.card__information .card__information--address')&.text&.strip
+        
         # Extract price from iw-price element
         price_element = property.css('iw-price').first
         if price_element && price_element[':price']
@@ -43,7 +46,8 @@ class ImmowebScraper
           houses << {
             title: title,
             price: price,
-            image_url: image_url
+            image_url: image_url,
+            location: address
           }
         end
       rescue => e

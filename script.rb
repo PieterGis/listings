@@ -1,13 +1,12 @@
-require 'mail'
 require 'dotenv'
-require_relative 'mail'
-require_relative 'immoweb'
-require_relative 'bordes'
-require_relative 'webpage'
-require_relative 'immo_zone'
-require_relative 'immoscoop'
-require_relative 'casteelsvastgoed'
-require_relative 'zimmo'
+require_relative 'sources/immoweb'
+require_relative 'sources/bordes'
+require_relative 'sources/immo_zone'
+require_relative 'sources/immoscoop'
+require_relative 'sources/casteelsvastgoed'
+require_relative 'sources/zimmo'
+require_relative 'sources/devosvastgoed'
+require_relative 'sources/axellenaerts'
 
 # Load environment variables from .env file
 Dotenv.load
@@ -104,11 +103,41 @@ def fetch_and_show_houses
   end
   houses += zimmo_houses
 
-  # Generate HTML and open in browser
-  html_file_path = WebpageGenerator.generate_html(houses)
-  WebpageGenerator.open_in_browser(html_file_path)
+  # puts "Fetching houses from Axel Lenaerts..."
+  # axellenaerts_houses = AxelLenaertsScraper.fetch_houses.map do |house|
+  #   puts house
+  #   {
+  #     title: house[:title],
+  #     price: house[:price],
+  #     location: house[:location],
+  #     type: "House",
+  #     bedrooms: house[:bedrooms],
+  #     url: house[:url],
+  #     image_url: house[:image_url],
+  #     source: 'Axel Lenaerts'
+  #   }
+  # end
+  # houses += axellenaerts_houses
+
+  puts "Fetching houses from Devos Vastgoed..."
+  devosvastgoed_houses = DevosVastgoedScraper.fetch_houses.map do |house|
+    puts house
+    {
+      id: house[:id],
+      title: house[:title],
+      price: house[:price],
+      location: house[:location],
+      type: "House",
+      bedrooms: house[:bedrooms],
+      url: house[:url],
+      image_url: house[:image_url],
+      source: 'Devos Vastgoed'
+    }
+  end 
+  puts devosvastgoed_houses
+  houses += devosvastgoed_houses
+
+  houses
 end
 
-# Run the script
-fetch_and_show_houses
 

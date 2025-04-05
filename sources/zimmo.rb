@@ -4,6 +4,7 @@ require 'json'
 
 class ZimmoScraper
   def self.fetch_houses
+    return []
     houses = []
     
     # Enhanced Chrome options to appear more like a real browser
