@@ -13,13 +13,20 @@
             <div class="mt-4 flex gap-4 items-center">
                 <label class="text-gray-700">Filter by source:</label>
                 <form id="sourceFilter" class="flex gap-2">
+                    <label class="inline-flex items-center mr-4">
+                        <input type="checkbox" 
+                               id="selectAll"
+                               class="form-checkbox h-5 w-5 text-blue-600">
+                        <span class="ml-2 text-gray-700">Select All</span>
+                    </label>
+                    
                     <% @available_sources.each do |source| %>
                         <label class="inline-flex items-center">
                             <input type="checkbox" 
                                    name="sources[]" 
                                    value="<%= source %>" 
                                    <%= @selected_sources&.include?(source) ? 'checked' : '' %>
-                                   class="form-checkbox h-5 w-5 text-blue-600">
+                                   class="source-checkbox form-checkbox h-5 w-5 text-blue-600">
                             <span class="ml-2 text-gray-700"><%= source.capitalize %></span>
                         </label>
                     <% end %>
@@ -49,6 +56,35 @@
         });
         
         window.location = url;
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const sourceCheckboxes = document.querySelectorAll('.source-checkbox');
+        
+        // Update "Select All" checkbox state based on other checkboxes
+        function updateSelectAllCheckbox() {
+            const allChecked = Array.from(sourceCheckboxes).every(checkbox => checkbox.checked);
+            selectAllCheckbox.checked = allChecked;
+            selectAllCheckbox.indeterminate = !allChecked && 
+                Array.from(sourceCheckboxes).some(checkbox => checkbox.checked);
+        }
+
+        // Initialize the select all checkbox state
+        updateSelectAllCheckbox();
+
+        // Handle "Select All" checkbox changes
+        selectAllCheckbox.addEventListener('change', function() {
+            const isChecked = this.checked;
+            sourceCheckboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        });
+
+        // Handle individual checkbox changes
+        sourceCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelectAllCheckbox);
+        });
     });
     </script>
 </body>

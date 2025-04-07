@@ -28,11 +28,13 @@ class ImmowebScraper
         background_div = media_container&.css('.card__media-background')&.first
         image_url = background_div['style'][/url\((.*?)\)/, 1] if background_div && background_div['style']
         
-        # Extract title
-        title = property.css('.card__title-link')&.text&.strip
+        # Extract title and URL from the title link
+        title_link = property.css('.card__title-link').first
+        title = title_link&.text&.strip
+        property_url = title_link&.attr('href')
         
         # Extract address
-        address = property.css('.card__information .card__information--address')&.text&.strip
+        address = property.css('.card--results__information--locality')&.text&.strip
         
         # Extract price from iw-price element
         price_element = property.css('iw-price').first
@@ -47,7 +49,10 @@ class ImmowebScraper
             title: title,
             price: price,
             image_url: image_url,
-            location: address
+            location: address,
+            type: 'House',
+            bedrooms: 2,
+            url: property_url
           }
         end
       rescue => e
