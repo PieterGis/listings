@@ -1,0 +1,15 @@
+name: house-scraper
+service:
+  name: house-scraper
+  ports:
+    - port: 8080
+      http: "/"
+  routes:
+    - path: "/"
+  instance_types:
+    - name: nano
+  env:
+    - name: RACK_ENV
+      value: production
+  buildpacks:
+    - ruby

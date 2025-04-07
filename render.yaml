@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: your-app-name
-    runtime: ruby
-    buildCommand: bundle install
-    startCommand: bundle exec rackup config.ru -p $PORT -o 0.0.0.0
