@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   <% @houses.each do |house| %>
-    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden <%= 'border-2 border-green-500' if house[:is_new] %>">    
       <% if house[:image_url] %>
         <img src="<%= house[:image_url] %>" alt="<%= house[:title] %>" class="w-full h-48 object-cover">
       <% end %>
